@@ -22,7 +22,5 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           target: main
           merge-method: squash
-          merge-commit-message: pull-request-title
-          skip-if-mergeable: false
-          skip-if-checks-pending: true
-          skip-if-required-checks-pending: true
+          use-github-auto-merge: true
+          skip-verification: false
