@@ -40,15 +40,34 @@ docker run -p 8000:8000 -v $(pwd)/test:/docs mkdocs-material-image:latest
 
 The GitHub Actions workflow builds and pushes the image to GHCR on push to main or when tags are created.
 
+### Automated Dependency Updates
+
+Dependabot automatically monitors and creates pull requests for:
+
+- **Docker base image** (`python:3.13-slim`) - checks weekly for security patches and updates
+- **Python packages** (`mkdocs`, `mkdocs-material`, etc.) - checks weekly for new versions
+
+**Fully Automated Process:**
+
+1. Dependabot creates PRs with commit messages following the conformance format (`chore(deps): ...`)
+2. CI workflow validates the build
+3. Commit message conformance check validates the PR
+4. Auto-merge workflow automatically merges PRs that pass all checks
+5. Merging triggers the build-and-release workflow to build and push the new image
+
+No manual intervention required - the entire update process is automated.
+
 ## Project Structure
 
 ```plaintext
 .
 ├── Dockerfile                 # Docker image definition
+├── requirements.txt          # Python package dependencies
 ├── .dockerignore             # Files excluded from Docker build
 ├── .github/
-│   └── workflows/
-│       └── build-and-release.yml  # CI/CD workflow
+│   ├── workflows/
+│   │   └── build-and-release.yml  # CI/CD workflow
+│   └── dependabot.yml        # Automated dependency updates
 ├── .vscode/
 │   ├── settings.json         # VS Code settings
 │   └── extensions.json       # Recommended extensions

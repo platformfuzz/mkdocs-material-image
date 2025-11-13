@@ -4,11 +4,8 @@ FROM python:3.13-slim
 WORKDIR /docs
 
 # Install mkdocs and mkdocs-material
-RUN pip install --no-cache-dir \
-    mkdocs \
-    mkdocs-material \
-    mkdocs-minify-plugin \
-    mkdocs-redirects
+COPY requirements.txt /tmp/requirements.txt
+RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
 # Expose the default mkdocs port
 EXPOSE 8000
