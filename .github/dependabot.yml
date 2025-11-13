@@ -9,6 +9,11 @@ updates:
     commit-message:
       prefix: "chore"
       include: "scope"
+    ignore:
+      # Block major version updates (e.g., 3.13 -> 3.14)
+      # Allow only patch and minor updates within 3.13.x
+      - dependency-name: "python"
+        update-types: ["version-update:semver-major"]
 
   # Monitor Python packages
   - package-ecosystem: "pip"
