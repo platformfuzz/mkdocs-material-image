@@ -1,5 +1,5 @@
 # Stage 0: Build the base image locally
-FROM python:3.13-slim AS base-builder
+FROM python:3.15-slim AS base-builder
 
 WORKDIR /tmp
 
